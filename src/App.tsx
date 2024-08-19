@@ -6,7 +6,11 @@ function App() {
 
   return (
     <>
+<<<<<<< HEAD
       <h1>Hello world!</h1>
+=======
+      <h1>Hello </h1>
+>>>>>>> 17f807f6f375ad8da23c89a4402cf9f3be580e3f
     </>
   )
 }

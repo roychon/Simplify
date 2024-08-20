@@ -9,7 +9,7 @@ const Home = () => {
             <HomePageTitle title="Title"/>
             <div className="flex">
                 <Button text="Simplify Text" handleClick={() => navigate("/simplify-text")}/>
-                <Button text="Simplify File" handleClick={() => console.log("test")}/>
+                <Button text="Simplify File" handleClick={() => navigate("/simplify-file")}/>
             </div>
         </>  
     );

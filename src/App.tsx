@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import './App.css';
 import HomePage from './pages/HomePage';
-import { Route, Router, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import NotFound from './pages/NotFound';
 import SimplifyText from './pages/SimplifyText';
 
 function App() {
   const [count, setCount] = useState(0);
-
+  // TODO: set Router
   return (
     <>
       <Routes>
@@ -20,3 +20,5 @@ function App() {
 }
 
 export default App;
+
+// React Router: useNavigate hook -> returns a function

@@ -1,0 +1,64 @@
+body {
+  background-color: rgb(20, 20, 20);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 30px;
+}
+
+.container::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  border-bottom: 1px solid white;
+}
+
+.icon {
+  color: white;
+  font-size: 20px;
+  margin-right: 18px;
+}
+
+.title {
+  color: white;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.flex {
+  padding-top: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.flex > * {
+  margin-bottom: 20px;
+}
+
+.home-page-title {
+  color: white;
+  font-size: 30px;
+  font-weight: 200;
+}
+
+.agreement-title {
+  color: rgb(123, 123, 123);
+  font-weight: 200;
+  font-size: 15px;
+}
+
+button {
+  padding: 10px 170px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}

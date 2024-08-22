@@ -46,7 +46,7 @@ a:hover {
 }
 
 .flex {
-  padding-top: 150px;
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -93,4 +93,133 @@ button {
 
 .file-btn-section > button {
   padding: 5px 20px;
+}
+
+.label {
+  display: block;
+  color: white;
+}
+
+.select-label {
+  display: block;
+  margin-top: 20px;
+  color: white;
+}
+
+.simplify-text-container {
+  position: relative;
+  margin: 1rem 0;
+}
+
+.text-area-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.textarea,
+.select {
+  padding: 20px;
+  width: 400px;
+  height: 60px;
+  overflow: auto;
+  scrollbar-width: none;
+  border: 1px solid rgb(43, 43, 43);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  font-family: 'Arial', sans-serif;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  resize: none;
+  background-color: rgb(30, 30, 30);
+  margin-top: 10px;
+  color: rgb(104, 104, 104);
+}
+
+.textarea::placeholder {
+  font-size: 15px;
+  color: rgb(104, 104, 104);
+}
+
+.textarea:focus,
+.select:focus,
+.bigtextarea:focus {
+  outline: none;
+  border-color: #e1e1e1;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+.select-area-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+select {
+  appearance: none;
+  font-size: 15px;
+  color: rgb(104, 104, 104);
+}
+
+.bigtextarea {
+  padding: 20px;
+  width: 600px;
+  height: 200px;
+  overflow: auto;
+  scrollbar-width: none;
+  border: 1px solid rgb(43, 43, 43);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  font-family: 'Arial', sans-serif;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  resize: none;
+  background-color: rgb(30, 30, 30);
+  margin-top: 10px;
+  color: rgb(104, 104, 104);
+}
+
+.keywords-container {
+  height: 100px;
+}
+
+.keywords-container {
+  height: auto;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgb(20, 20, 20);
+  max-width: 400px;
+}
+
+.keyword {
+  display: inline-block;
+  text-align: center;
+  padding: 5px;
+  height: 30px;
+  color: rgb(20, 158, 158);
+  margin: 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.keywords-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.keyword:hover {
+  cursor: pointer;
+  background-color: #b2ebf2;
 }

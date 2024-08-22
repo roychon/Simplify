@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './App.css';
 import HomePage from './pages/HomePage';
 import { Route, Routes } from 'react-router-dom';
@@ -8,7 +7,7 @@ import SimplifyFile from './pages/SimplifyFile';
 import Nav from './components/Nav';
 
 function App() {
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
   // TODO: set Router
   return (
     <>

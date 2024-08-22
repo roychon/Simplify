@@ -24,8 +24,8 @@ const SimplifyFile = () => {
           <section id="file-upload-page">
             <HomePageTitle title={"Upload your document"} />
             <div style={{"textAlign": "left"}}>
-                <p>Drag and drop your file here. We accept .pdf and .docx files</p>
-                <input ref={fileRef} type="file" id="file-upload-btn" onChange={(e) => handleFileUpload(e)} accept="pdf docx" style={{"marginTop": "10px"}}/>
+                <p>Drag and drop your file here. We accept .html and .docx files</p>
+                <input ref={fileRef} type="file" id="file-upload-btn" onChange={(e) => handleFileUpload(e)} accept="html" style={{"marginTop": "10px"}}/>
             {file && (
               <section style={{"marginTop": "10px"}}>
                 File details:

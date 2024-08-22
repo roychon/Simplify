@@ -50,7 +50,7 @@ const SimplifyText = () => {
 
   return (
     <>
-      <Nav />
+      {/* <Nav /> */}
       <div className='flex'>
         <HomePageTitle title='Simplify scientific texts.' />
         <div className='simplify-text-container'>

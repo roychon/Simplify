@@ -1,5 +1,19 @@
 body {
   background-color: rgb(20, 20, 20);
+  color: white;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 .container {
@@ -20,13 +34,13 @@ body {
 }
 
 .icon {
-  color: white;
+  /* color: white; */
   font-size: 20px;
   margin-right: 18px;
 }
 
 .title {
-  color: white;
+  /* color: white; */
   font-size: 18px;
   font-weight: 400;
 }
@@ -44,7 +58,7 @@ body {
 }
 
 .home-page-title {
-  color: white;
+  /* color: white; */
   font-size: 30px;
   font-weight: 200;
 }
@@ -56,11 +70,29 @@ body {
 }
 
 button {
+  display: block;
   padding: 10px 170px;
   border-radius: 10px;
   border: none;
   cursor: pointer;
   font-weight: bold;
+}
+
+#file-upload-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4rem;
+  gap: 1.2rem;
+}
+
+.file-btn-section {
+  display: flex;
+  gap: 10px;
+}
+
+.file-btn-section > button {
+  padding: 5px 20px;
 }
 
 .label {

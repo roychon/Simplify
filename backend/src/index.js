@@ -1,16 +1,15 @@
-const express = require('express');
-const app = express(); // initialize express app
-const cors = require('cors');
-const fileUpload = require('express-fileupload');
-const shortid = require('shortid');
-const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
-const fs = require('fs');
+const express = require("express")
+const app = express() // initialize express app
+const cors = require("cors")
+const mongoose = require("mongoose")
+const fileUpload = require("express-fileupload")
+// below are express packages to simplify file uploads
 const simplifyController = require('./controllers/simplifyController');
 
 const dotenv = require('dotenv');
 dotenv.config();
 
+const MONGODB_URL = process.env.MONGODB_CONNECTION
 const PORT = process.env.PORT || '3000';
 
 // MIDDLEWARE
@@ -33,10 +32,11 @@ app.post('/simplify-text', simplifyController.simplifyText);
 app.post('/simplify-file', simplifyController.simplifyFile);
 
 // START SERVER
-app
-  .listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  })
-  .on('error', (e) => {
-    console.log(e);
-  });
+app.listen(PORT, async () => {
+  try {
+      await mongoose.connect(MONGODB_URL)
+      console.log(`Server connected on port ${PORT}`)
+  } catch (error) {
+      console.log(error)
+  }
+})

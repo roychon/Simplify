@@ -55,6 +55,10 @@ const SimplifyText = () => {
   };
 
   const handleSimplifyClick = async () => {
+    if (!selectedOption) {
+      setError('Please select a simplification level.');
+      return;
+    }
     setIsLoading(true);
     try {
       const response = await axios.post('/simplify-text', {
@@ -92,7 +96,6 @@ const SimplifyText = () => {
                   className='textarea'
                   id='keywords'
                 />
-                {error && <div className='error-message'>{error}</div>}
                 {keywords.length > 0 && (
                   <div className='keywords-container'>
                     {keywords.map((keyword, index) => (
@@ -106,6 +109,7 @@ const SimplifyText = () => {
                     ))}
                   </div>
                 )}
+                {error && <div className='error-message'>{error}</div>}
                 <Simplification
                   className='select'
                   selectedOption={selectedOption}
@@ -134,6 +138,7 @@ const SimplifyText = () => {
                   setKeywordsText('');
                   setKeywords([]);
                   setSelectedOption('');
+                  setError('');
                 }}
               />
             </div>

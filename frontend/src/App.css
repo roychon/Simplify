@@ -9,13 +9,16 @@ li {
 
 a {
   color: white;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: all 0.3s ease-in;
+  display: inline-block;
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration-color: white;
+  transform: scale(1.1);
 }
-
 .container {
   display: flex;
   align-items: center;
@@ -76,6 +79,12 @@ button {
   border: none;
   cursor: pointer;
   font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
 }
 
 #file-upload-page {
@@ -233,6 +242,7 @@ select {
 }
 
 .simplified-text {
+  text-align: center;
   width: 60vw;
   margin-bottom: 30px;
   line-height: 2rem;

@@ -1,11 +1,9 @@
-const express = require('express');
-const app = express(); // initialize express app
-const cors = require('cors');
-const fileUpload = require('express-fileupload');
-const shortid = require('shortid');
-const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
-const fs = require('fs');
+const express = require("express")
+const app = express() // initialize express app
+const cors = require("cors")
+const mongoose = require("mongoose")
+const fileUpload = require("express-fileupload")
+// below are express packages to simplify file uploads
 const simplifyController = require('./controllers/simplifyController');
 
 const dotenv = require('dotenv');

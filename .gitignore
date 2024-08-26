@@ -28,3 +28,4 @@ dist-ssr
 backend/src/uploads/*
 backend/node_modules
 .env
+.vite

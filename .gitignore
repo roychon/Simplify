@@ -27,3 +27,4 @@ dist-ssr
 *.env
 backend/src/uploads/*
 backend/node_modules
+.env

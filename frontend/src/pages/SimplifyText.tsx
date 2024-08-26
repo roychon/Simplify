@@ -15,6 +15,7 @@ const SimplifyText = () => {
   const [error, setError] = useState<string | null>(null);
   const [isSimplified, setIsSimplified] = useState<boolean>(false);
   const [data, setData] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Loading state
 
   const handleKeywordsChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setKeywordsText(e.target.value);
@@ -48,70 +49,84 @@ const SimplifyText = () => {
     setKeywords(keywords.filter((keyword) => keyword !== keywordToRemove));
   };
 
+  const handleSimplifyClick = async () => {
+    setIsLoading(true); // Start loading
+    try {
+      const response = await axios.post('/simplify-text', {
+        text: inputText,
+        keywords,
+      });
+      setData(response.data);
+      setIsSimplified(true);
+    } catch {
+      setError('An error occurred while simplifying the text.');
+    } finally {
+      setIsLoading(false); // End loading
+    }
+  };
+
   return (
     <>
-      {!isSimplified ? (
-        <div className='flex'>
-          <HomePageTitle title='Simplify scientific texts.' />
-          <div className='simplify-text-container'>
-            <TextArea
-              placeholder='Enter keywords'
-              handleChange={handleKeywordsChange}
-              handleKeyPress={handleKeywordsKeyPress}
-              value={keywordsText}
-              title='Keywords to keep'
-              className='textarea'
-              id='keywords'
-            />
-            {error && <div className='error-message'>{error}</div>}
-            {keywords.length > 0 && (
-              <div className='keywords-container'>
-                {keywords.map((keyword, index) => (
-                  <div
-                    key={index}
-                    className='keyword'
-                    onMouseUp={() => removeKeyword(keyword)}
-                  >
-                    {keyword}
-                  </div>
-                ))}
-              </div>
-            )}
-            <Simplification />
-          </div>
-          <TextArea
-            placeholder='Enter text'
-            handleChange={handleInputChange}
-            value={inputText}
-            title=''
-            className='bigtextarea'
-            id='bigkeyword'
-          />
-          <Button
-            text='Simplify Text'
-            handleClick={async () => {
-              const data = await axios.post('/simplify-text', {
-                text: inputText,
-                keywords,
-              });
-              setData(data.data);
-              setIsSimplified(true);
-            }}
-          />
-          <Agreement title="By clicking 'Simplify', you agree to the terms of the service" />
+      {isLoading ? (
+        <div className='loading-page'>
+          <div className='loading-indicator'>Loading...</div>
         </div>
       ) : (
-        <div className='is-simplfied-text-container'>
-          <div className='simplified-text'>{data}</div>
-          <Button
-            text='Previous'
-            handleClick={() => {
-              setIsSimplified(false);
-              setInputText('');
-              setKeywords([]);
-            }}
-          />
-        </div>
+        <>
+          {!isSimplified ? (
+            <div className='flex'>
+              <HomePageTitle title='Simplify scientific texts.' />
+              <div className='simplify-text-container'>
+                <TextArea
+                  placeholder='Enter keywords'
+                  handleChange={handleKeywordsChange}
+                  handleKeyPress={handleKeywordsKeyPress}
+                  value={keywordsText}
+                  title='Keywords to keep'
+                  className='textarea'
+                  id='keywords'
+                />
+                {error && <div className='error-message'>{error}</div>}
+                {keywords.length > 0 && (
+                  <div className='keywords-container'>
+                    {keywords.map((keyword, index) => (
+                      <div
+                        key={index}
+                        className='keyword'
+                        onMouseUp={() => removeKeyword(keyword)}
+                      >
+                        {keyword}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <Simplification />
+              </div>
+              <TextArea
+                placeholder='Enter text'
+                handleChange={handleInputChange}
+                value={inputText}
+                title=''
+                className='bigtextarea'
+                id='bigkeyword'
+              />
+              <Button text='Simplify Text' handleClick={handleSimplifyClick} />
+              <Agreement title="By clicking 'Simplify', you agree to the terms of the service" />
+            </div>
+          ) : (
+            <div className='is-simplfied-text-container'>
+              <div className='simplified-text'>{data}</div>
+              <Button
+                text='Previous'
+                handleClick={() => {
+                  setIsSimplified(false);
+                  setInputText('');
+                  setKeywords([]);
+                }}
+              />
+            </div>
+          )}
+        </>
       )}
     </>
   );

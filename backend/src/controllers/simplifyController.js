@@ -18,7 +18,6 @@ const simplifyText = async (req, res) => {
   const response = await cohere.chat({
     message,
   });
-  console.log(response.text);
   res.send(response.text);
 };
 

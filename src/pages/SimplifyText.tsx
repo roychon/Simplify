@@ -5,7 +5,7 @@ import HomePageTitle from '../components/HomePageTitle';
 import Nav from '../components/Nav';
 import TextArea from '../components/TextArea';
 import { useNavigate } from 'react-router-dom';
-import Simplification from '../components/Simplification';
+import Simplification from '../components/FileSimplication';
 
 const SimplifyText = () => {
   const MAX_KEYWORDS = 5;

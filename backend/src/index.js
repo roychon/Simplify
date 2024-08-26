@@ -1,7 +1,9 @@
 const express = require("express")
 const app = express() // initialize express app
 const cors = require("cors")
-// express package to simplify file uploads
+const mongoose = require("mongoose")
+const { CohereClient } = require('cohere-ai');
+// below are express packages to simplify file uploads
 const fileUpload = require("express-fileupload")
 const shortid = require("shortid")
 const jsdom = require("jsdom")
@@ -10,7 +12,11 @@ const fs = require("fs")
 
 const dotenv = require("dotenv")
 dotenv.config()
+const cohere = new CohereClient({
+    token: process.env.COHERE_API_KEY
+})
 
+const MONGODB_URL = process.env.MONGODB_CONNECTION
 const PORT = process.env.PORT || "3000"
 
 // MIDDLEWARE
@@ -22,20 +28,19 @@ app.use(cors({
 }))
 
 // ROUTES
+// to make it "matter", we'll fetch it
+
 app.get("/", (req, res) => {
-    res.json({"user": "Roy"})
+    res.send("STEMplify endpoint")
 })
 
 app.post("/simplify-file", async (req, res) => {
-    // TODO: handle duplicate file uploads
+    // TODO: move functions to controllers
     
   if (req.files && Object.keys(req.files).length !== 0) {
-    // console.log("REQ: ", req)
-    // console.log(req.files)
     // Path to upload file
     const uploadedFile = req.files.file;
 
-    // Upload path
     const uploadPath = __dirname + "/uploads/" + shortid.generate() + ".html";
  
     // saving file logic using mv() function
@@ -49,18 +54,12 @@ app.post("/simplify-file", async (req, res) => {
       fs.readFile(uploadPath, "utf8", async (err, data) => {
             const dom = new JSDOM(data)
             const document = dom.window.document
-            // init Cohere client
-            const { CohereClient } = require('cohere-ai');
-            const cohere = new CohereClient({
-                token: process.env.COHERE_API_KEY,
-            });
             const simplifyTextNodes = async (node, counter) => {
-                if (counter.count == 9) return
-                // console.log(document.childNodes[0])
+                if (counter.count == 2) return // TODO: change to 9 afterwards
                 for (let child of node.childNodes) {
                     // console.log(`text content: ${child.nodeValue}`)
                     // if (child.nodeValue == null) console.log("NULL\n")
-                    if (child.nodeType == 3&& child.nodeValue != null && child.nodeValue && child.nodeValue.trim()) {
+                    if (child.nodeType == 3 && child.nodeValue != null && child.nodeValue && child.nodeValue.trim()) {
                         // console.log("HEEE")
                         const content = child.nodeValue.trim();
                         console.log(`CONTENT: ${content}`);
@@ -100,8 +99,10 @@ app.post("/simplify-file", async (req, res) => {
                 return res.status(500).send('Failed to write simplified file');
             }
 
-            console.log('DONE');
-            return res.status(201).send('Successfully simplified contents of file');
+            // console.log('DONE');
+            const base64Encoding = fs.readFileSync(uploadPath, {encoding: "base64"})
+            console.log(base64Encoding)
+            return res.status(201).json({"fileEncoding": base64Encoding});
             // TODO: save to MongoDB database and send the file entry locations to frontend later.
         })
             
@@ -113,8 +114,11 @@ app.post("/simplify-file", async (req, res) => {
 });
 
 // START SERVER
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-}).on("error", (e) => {
-    console.log(e)
+app.listen(PORT, async () => {
+    try {
+        await mongoose.connect(MONGODB_URL)
+        console.log(`Server connected on port ${PORT}`)
+    } catch (error) {
+        console.log(error)
+    }
 })

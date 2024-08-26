@@ -10,11 +10,10 @@ export async function sendFileToBackend(file: File) {
                 "Content-Type": "multipart/form-data"
             }
         })
-        console.log(res.data)
-
+        // console.log(res.data)
+        return res.data.fileEncoding
     } catch (error) {
         
     }
     console.log("Sending file to backend")
-
 }   

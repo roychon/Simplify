@@ -9,13 +9,18 @@ import axios from '../helpers/axios';
 const SimplifyText = () => {
   const MAX_KEYWORDS = 5;
 
+  const [selectedOption, setSelectedOption] = useState('');
   const [keywordsText, setKeywordsText] = useState('');
   const [inputText, setInputText] = useState('');
   const [keywords, setKeywords] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isSimplified, setIsSimplified] = useState<boolean>(false);
   const [data, setData] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(false); // Loading state
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const handleSimplificationChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedOption(e.target.value);
+  };
 
   const handleKeywordsChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     setKeywordsText(e.target.value);
@@ -29,7 +34,7 @@ const SimplifyText = () => {
     e: React.KeyboardEvent<HTMLTextAreaElement>
   ): void => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // Prevent new line
+      e.preventDefault();
       const trimmedKeyword = keywordsText.trim();
       if (trimmedKeyword) {
         if (keywords.includes(trimmedKeyword)) {
@@ -50,18 +55,19 @@ const SimplifyText = () => {
   };
 
   const handleSimplifyClick = async () => {
-    setIsLoading(true); // Start loading
+    setIsLoading(true);
     try {
       const response = await axios.post('/simplify-text', {
         text: inputText,
         keywords,
+        simplificationAge: selectedOption,
       });
       setData(response.data);
       setIsSimplified(true);
     } catch {
       setError('An error occurred while simplifying the text.');
     } finally {
-      setIsLoading(false); // End loading
+      setIsLoading(false);
     }
   };
 
@@ -100,7 +106,11 @@ const SimplifyText = () => {
                     ))}
                   </div>
                 )}
-                <Simplification />
+                <Simplification
+                  className='select'
+                  selectedOption={selectedOption}
+                  handleChange={handleSimplificationChange}
+                />
               </div>
               <TextArea
                 placeholder='Enter text'
@@ -121,7 +131,9 @@ const SimplifyText = () => {
                 handleClick={() => {
                   setIsSimplified(false);
                   setInputText('');
+                  setKeywordsText('');
                   setKeywords([]);
+                  setSelectedOption('');
                 }}
               />
             </div>

@@ -6,18 +6,19 @@ const cohere = new CohereClient({
 });
 
 const simplifyText = async (req, res) => {
-  let { text, keywords } = req.body;
+  let { text, keywords, simplificationAge } = req.body;
   let keywordList = '';
   for (let keyword of keywords) {
     keywordList += `${keyword}, `;
   }
   let message =
-    `Simplify the following text to a Grade 6 Reading Level by replacing complex words with simpler synonyms. 
+    `Simplify the following text for a ${simplificationAge} year old by replacing complex words with simpler synonyms. 
       Only return the simplified text, without any explanations, introductions, or conclusions: ${text}. The simplified text should include the following words: ` +
     keywordList;
   const response = await cohere.chat({
     message,
   });
+  console.log(typeof simplificationAge);
   res.send(response.text);
 };
 

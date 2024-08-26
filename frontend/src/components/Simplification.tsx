@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { ChangeEvent } from 'react';
 
-const Simplification = () => {
-  const [selectedOption, setSelectedOption] = useState('');
+interface Simplification {
+  text?: string;
+  style?: React.CSSProperties;
+  className?: string;
+  handleChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+  selectedOption: string;
+}
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(e.target.value);
-  };
-
+const Simplification = (props: Simplification) => {
   return (
     <div className='select-area-container'>
       <label htmlFor='select' className='select-label'>
@@ -14,16 +16,16 @@ const Simplification = () => {
       </label>
       <select
         id='select'
-        className='select'
-        value={selectedOption}
-        onChange={handleChange}
+        className={props.className}
+        value={props.selectedOption}
+        onChange={props.handleChange}
       >
         <option value='' disabled>
           Select Level
         </option>
-        <option value='option1'>1</option>
-        <option value='option2'>2</option>
-        <option value='option3'>3</option>
+        <option value='6'>1</option>
+        <option value='12'>2</option>
+        <option value='25'>3</option>
       </select>
     </div>
   );

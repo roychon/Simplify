@@ -31,11 +31,15 @@ const simplifyFile = async (req, res) => {
     // Path to upload file
     const uploadedFile = req.files.file;
 
+    const dir = path.join(__dirname, "../uploads");
+    if (!fs.existsSync(dir)){
+      fs.mkdirSync(dir);
+    }
     const uploadPath = path.join(
       __dirname,
       '../uploads/',
       shortid.generate() + '.html'
-    );
+    );    
 
     // saving file logic using mv() function
     uploadedFile.mv(uploadPath, function (err) {
@@ -49,7 +53,7 @@ const simplifyFile = async (req, res) => {
         const dom = new JSDOM(data);
         const document = dom.window.document;
         const simplifyTextNodes = async (node, counter) => {
-          if (counter.count == 2) return; // TODO: change to 9 afterwards
+          if (counter.count == 8) return; // TODO: change to 9 afterwards
           for (let child of node.childNodes) {
             // console.log(`text content: ${child.nodeValue}`)
             // if (child.nodeValue == null) console.log("NULL\n")
